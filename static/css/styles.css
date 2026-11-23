@@ -1,0 +1,206 @@
+/*
+Presidency University - Academic Credential & Skill Verification System
+Institutional Stylesheet: Deep Navy, Metallic Gold, and Slate Accents
+*/
+
+:root {
+  --pu-navy-dark: #071526;
+  --pu-navy-primary: #0B2240;
+  --pu-navy-light: #16365C;
+  --pu-gold-dark: #B38F2E;
+  --pu-gold-primary: #D4AF37;
+  --pu-gold-light: #F4E091;
+  --pu-bg: #F8FAFC;
+  --pu-card: #FFFFFF;
+  --pu-border: #E2E8F0;
+  --pu-text: #0F172A;
+  --pu-text-muted: #64748B;
+  --pu-emerald: #10B981;
+  --pu-rose: #F43F5E;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--pu-bg);
+  color: var(--pu-text);
+  min-height: 100vh;
+}
+
+.font-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', Consolas, monospace;
+}
+
+/* Glassmorphism & Header */
+.pu-header {
+  background: linear-gradient(135deg, var(--pu-navy-dark) 0%, var(--pu-navy-primary) 100%);
+  border-bottom: 2px solid var(--pu-gold-primary);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, var(--pu-gold-light) 0%, var(--pu-gold-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-border {
+  border-color: var(--pu-gold-primary);
+}
+
+.gold-btn {
+  background: linear-gradient(135deg, var(--pu-gold-primary) 0%, var(--pu-gold-dark) 100%);
+  color: #071526;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.gold-btn:hover {
+  background: linear-gradient(135deg, #F3D369 0%, var(--pu-gold-primary) 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+}
+
+.navy-btn {
+  background-color: var(--pu-navy-primary);
+  color: #FFFFFF;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.navy-btn:hover {
+  background-color: var(--pu-navy-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(11, 34, 64, 0.25);
+}
+
+/* Card effects */
+.pu-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--pu-border);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pu-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+}
+
+/* Degree Certificate Styling (Printable & High-Fidelity) */
+.diploma-certificate {
+  position: relative;
+  background: #FCFCF9;
+  border: 12px double #0B2240;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 2.5rem;
+  max-width: 840px;
+  margin: 0 auto;
+  color: #1e293b;
+}
+
+.diploma-certificate::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 6px;
+  right: 6px;
+  border: 2px solid var(--pu-gold-primary);
+  pointer-events: none;
+}
+
+.diploma-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 320px;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%230B2240"><path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2zm0 8.82L4.25 7 12 3.45 19.75 7 12 10.82zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.diploma-seal {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 4px double var(--pu-gold-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, #fff9e6 0%, #fae69e 100%);
+  box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+}
+
+/* Verification Step Pills */
+.step-card {
+  transition: all 0.3s ease;
+}
+
+.step-card.passed {
+  border-color: #10B981;
+  background-color: #F0FDF4;
+}
+
+.step-card.failed {
+  border-color: #F43F5E;
+  background-color: #FFF1F2;
+}
+
+/* Modal styles */
+.modal-backdrop {
+  background-color: rgba(7, 21, 38, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+/* Merkle Tree Visualizer Nodes */
+.merkle-node {
+  background: #FFFFFF;
+  border: 2px solid #CBD5E1;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.merkle-node.root {
+  border-color: var(--pu-gold-primary);
+  background: #FFFBEB;
+  font-weight: 700;
+}
+
+.merkle-node.target {
+  border-color: #10B981;
+  background: #ECFDF5;
+  font-weight: 700;
+}
+
+.merkle-node.sibling {
+  border-color: #3B82F6;
+  background: #EFF6FF;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
