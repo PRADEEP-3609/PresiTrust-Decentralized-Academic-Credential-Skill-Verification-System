@@ -89,14 +89,24 @@ class RevokeRequest(BaseModel):
     reason: str
 
 
+try:
+    from seed_data import seed_all
+    seed_all()
+except Exception as e:
+    pass
+
 # ---------------------------------------------------------------------------
 # Startup & Health
 # ---------------------------------------------------------------------------
 
 @app.on_event("startup")
 def startup_event():
-    init_db()
-    get_or_create_university_keys()
+    try:
+        from seed_data import seed_all
+        seed_all()
+    except Exception as e:
+        init_db()
+        get_or_create_university_keys()
 
 
 @app.get("/api/health")

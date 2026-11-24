@@ -10,10 +10,13 @@ from datetime import datetime
 from typing import List, Dict, Any, Optional
 
 def get_default_db_path() -> str:
-    """Determine the optimal database path, falling back to user home if Documents is protected."""
+    """Determine the optimal database path, supporting local dev and Vercel serverless /tmp."""
     if "PRESIDENCY_DB_PATH" in os.environ:
         return os.environ["PRESIDENCY_DB_PATH"]
     
+    if os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"):
+        return "/tmp/presidency_credentials.db"
+
     local_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "presidency_credentials.db")
     try:
         # Test if we can open/create the file in the workspace directory
@@ -23,7 +26,10 @@ def get_default_db_path() -> str:
         test_conn.close()
         return local_path
     except (sqlite3.OperationalError, PermissionError, OSError):
-        # Fallback to user home directory where Controlled Folder Access does not block Python
+        # On Linux/Unix (like Vercel containers), /tmp is the writable storage
+        if os.name != 'nt':
+            return "/tmp/presidency_credentials.db"
+        # On Windows fallback to user home directory
         home_path = os.path.join(os.path.expanduser("~"), ".presidency_credentials.db")
         return home_path
 
@@ -36,7 +42,10 @@ def get_db_connection():
     try:
         conn = sqlite3.connect(DB_PATH)
     except (sqlite3.OperationalError, PermissionError, OSError):
-        DB_PATH = os.path.join(os.path.expanduser("~"), ".presidency_credentials.db")
+        if os.name != 'nt':
+            DB_PATH = "/tmp/presidency_credentials.db"
+        else:
+            DB_PATH = os.path.join(os.path.expanduser("~"), ".presidency_credentials.db")
         conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
